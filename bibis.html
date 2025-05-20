@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Semangat TA, Sayang!</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #ffe6f0, #fff5fa);
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      padding: 50px;
+      color: #d63384;
+      overflow: hidden;
+    }
+
+    .box {
+      background: #fff0f5;
+      border: 4px dashed #ff69b4;
+      border-radius: 25px;
+      padding: 30px;
+      box-shadow: 0 0 25px rgba(255, 105, 180, 0.5);
+      max-width: 600px;
+      margin: auto;
+      animation: pop 0.6s ease-in-out;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 2.2em;
+      margin-bottom: 10px;
+      animation: pulse 1.5s infinite;
+    }
+
+    p {
+      font-size: 1.3em;
+      margin: 15px 0;
+      animation: shake 1s infinite alternate;
+    }
+
+    img {
+      width: 200px;
+      border-radius: 50%;
+      border: 4px solid #ffb6c1;
+      box-shadow: 0 0 15px pink;
+      margin-top: 20px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    button {
+      margin-top: 25px;
+      background: #ff69b4;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1em;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ff85c1;
+    }
+
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .heart {
+      position: absolute;
+      top: -10px;
+      color: pink;
+      font-size: 20px;
+      animation: fall linear infinite;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0px); }
+      100% { transform: translateX(2px); }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    .final-message {
+      display: none;
+      margin-top: 30px;
+      font-size: 1.5em;
+      color: #ff4081;
+      animation: pop 1s ease forwards;
+    }
+
+    .final-gif {
+      width: 250px;
+      margin-top: 20px;
+      display: none;
+      border-radius: 15px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="hearts" id="heartsContainer"></div>
+
+  <audio autoplay loop>
+    <source src="bib.mp3" type="audio/mp3">
+    Browsermu tidak mendukung audio 😢
+  </audio>
+
+  <div class="box" id="semangatBox">
+    <h1>💖 SEMANGAT YAA, BIBISS 💖</h1>
+    <img src="bis.jpeg" alt="Bibiss">
+    <p id="pesan">Di klik yaa biss tombol dibawah ini biar dapet suntikan semangat kiyowo dari akuu~ ✨</p>
+    <button onclick="tampilkanPesan()">Kasih Semangat Lagi!</button>
+
+    <div class="final-message" id="finalMessage">💌 afyuuu bibisss, terus semangat ya Bibiss! 😚</div>
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjF6aGhpaTZnOG5kMGx6ZTVvdjY2M3hiMHZxMzZpdWNsaHRiMnJ2cCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/Rkis28kMJd1aE/giphy.gif" alt="cute gif" class="final-gif" id="finalGif">
+  </div>
+
+  <script>
+    const pesan2 = [
+      "Kamu tuh pintar, kuat, dan keren banget! 💪",
+      "Tugas Akhir? Bisa banget lah kamu selesain! 📝",
+      "Kalau capek, peluk virtual dari aku ya 🤗",
+      "Senyum dulu dong, biar makin manis 😚",
+      "Aku percaya kamu bisa, jangan ragu ya 💖",
+      "Setiap usaha kamu, makin dekat sama wisuda 🎓",
+      "Aku bangga banget punya kamu 😍",
+      "Semangat terus, jangan nyerah! Aku di sini selalu dukung bibiss🐣"
+    ];
+
+    let index = 0;
+    function tampilkanPesan() {
+      const p = document.getElementById("pesan");
+      p.textContent = pesan2[index];
+
+      if (index === pesan2.length - 1) {
+        document.getElementById("finalMessage").style.display = "block";
+        document.getElementById("finalGif").style.display = "block";
+      } else {
+        document.getElementById("finalMessage").style.display = "none";
+        document.getElementById("finalGif").style.display = "none";
+      }
+
+      index = (index + 1) % pesan2.length;
+    }
+
+    // animasi hati jatuh
+    const heartsContainer = document.getElementById("heartsContainer");
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+      heart.textContent = "💗";
+      heartsContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }, 300);
+  </script>
+
+</body>
+</html>
